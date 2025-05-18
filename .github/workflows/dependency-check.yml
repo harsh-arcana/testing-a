@@ -1,7 +1,11 @@
 name: Dependency Check
 on:
-  pull_request:             # keeps the scope you already wanted
-    types: [opened, edited, synchronize, reopened]
+  pull_request:                # ← use pull_request, NOT pull_request_target
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
 
 permissions:
   contents: read

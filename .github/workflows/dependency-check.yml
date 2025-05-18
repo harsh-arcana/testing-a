@@ -1,17 +1,17 @@
 name: Dependency Check
 on:
-  pull_request:
+  pull_request:             # keeps the scope you already wanted
     types: [opened, edited, synchronize, reopened]
 
 permissions:
-  pull-requests: read
   contents: read
+  pull-requests: read
 
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
       - name: Check dependent PRs
-        uses: gregsdennis/dependencies-action@v1.3.0
+        uses: gregsdennis/dependencies-action@v1.4.1   # Node-20 build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

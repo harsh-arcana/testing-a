@@ -1,20 +1,28 @@
 # .github/workflows/dependency-check.yml
-name: Dependency Check
+name: dependency-check           # workflow name
 
 on:
-  workflow_dispatch:
+  # 1️⃣  Runs on every PR so it can block merges
   pull_request:
-    types: [opened, edited, synchronize, reopened]
+    types: [opened, synchronize, reopened, edited]
+  # 2️⃣  Runs on every push to main so the context
+  #     appears on the default branch
+  push:
+    branches: [main]
+  # 3️⃣  (Optional) lets you trigger it manually from Actions tab
+  workflow_dispatch:
 
 permissions:
   contents: read
   pull-requests: read
 
 jobs:
-  verify:
+  dependency-check:              # ← status context = "dependency-check"
+    name: dependency-check       # (explicit name keeps it stable)
     runs-on: ubuntu-latest
+
     steps:
-      - name: Check PR dependencies
+      - name: Evaluate PR dependencies
         uses: gregsdennis/dependencies-action@v1.4.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
